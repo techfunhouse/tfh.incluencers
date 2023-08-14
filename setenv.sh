@@ -1,5 +1,0 @@
-export GOOGLE_ANALYTICS_KEY="G-GQNYL2ZJV4"
-export GOOGLE_RECAPTCHA_SITE_KEY="6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
-export GOOGLE_APPSCRIPT_COMMENTS="https://script.google.com/macros/s/AKfycbwK_OwqzQdZZhrXjqWpq-PEMiq9iwbWVhKKqhrPnlRgTcq3KxwPIvpSG5dgpSXlnrIQ/exec"
-export GOOGLE_APPSCRIPT_PROPOSALS="https://script.google.com/macros/s/AKfycbxgmc6WQnqOIvW1vC3OTyZWvPk2oyEJTKepKl25MdSTBeFb_GCfUkyczeh58VPtq82k/exec"
-export GOOGLE_APPSCRIPT_FEEDBACK="https://script.google.com/macros/s/AKfycbzwx6nQWQ8EevzJv6x7ZE2bCfPvnZoaj7n1Ywd30YBUFZ9W4L7J09-g5ZnVy8IZGojs/exec"
