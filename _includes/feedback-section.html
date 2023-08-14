@@ -1,0 +1,599 @@
+{%- assign recaptcha_enabled = true -%}
+
+<script>
+	function setText(elementId, textContent) {
+		document.getElementById(elementId).textContent = textContent;
+	};
+
+	function show(elementId) {
+		document.getElementById(elementId).style.display = 'inline';
+	};
+
+	function hide(elementId) {
+		document.getElementById(elementId).style.display = 'none';
+	};
+
+	function getValue(elementId) {
+		return document.getElementById(elementId).value;
+	};
+
+	function setValue(elementId, value) {
+		return document.getElementById(elementId).value = value;
+	};
+
+	function fadeIn(element) {
+		var duration = 400;
+		element.style.opacity = 0;
+		let opacity = 0;
+		const timer = setInterval(function() {
+		  opacity += 50 / duration;
+		  if (opacity >= 1) {
+		    clearInterval(timer);
+		    opacity = 1;
+		  }
+		  element.style.opacity = opacity;
+		}, 50);
+	};
+
+	function disableButtonWithLoader(elementId) {
+		var buttonToDisable = document.getElementById(elementId);
+		if (buttonToDisable == null) {
+			return;
+		}
+		buttonToDisable.disabled = true;
+		setText(elementId, "\xa0");
+	}
+
+	function disablePostFeedbackButton() {
+		disableButtonWithLoader("feedback-submit");
+	};
+
+	function enablePostFeedbackButton() {
+		var postFeedbackButton = document.getElementById("feedback-submit");
+		postFeedbackButton.disabled = false;
+		setText("feedback-submit", "Post");
+	};
+
+	async function initialFeedbackLoad() {
+		disableButtonWithLoader("load-feedback-button");
+		
+		var loadRecaptcha = document.createElement("script");
+		loadRecaptcha.src = "https://www.google.com/recaptcha/api.js?render={{ site.google_forms_feedback.recaptcha_site_key }}";
+		document.head.appendChild(loadRecaptcha);
+
+    var loadValidator = document.createElement("script");
+		loadValidator.src = "https://cdnjs.cloudflare.com/ajax/libs/validator/13.9.0/validator.min.js";
+		document.head.appendChild(loadValidator);
+
+		await loadRecaptcha.onload;
+		await loadValidator.onload;
+
+		reloadFeedback();
+	};
+
+	var visibleFeedback = [];
+	var hiddenFeedback = [];
+	var netNewFeedback = [];
+
+	function formatDate(stringDate) {
+		var date = new Date(stringDate);
+		var dateOptions = { year: 'numeric', month: 'long', day: 'numeric'};
+		var timeOptions = { hour: 'numeric', minute: 'numeric' };
+		return `${date.toLocaleDateString("en-us", dateOptions)} at ${date.toLocaleTimeString("en-us", timeOptions)}`;
+	};
+
+  function smoothScrollTo(element) {
+		element.scrollIntoView({
+		  behavior: "smooth",
+		  block: "start",
+		  inline: "nearest"
+		});
+	};
+
+	const encodeFormData = (data) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+        .join('&');
+	};
+
+  async function displayFeedback(feedback) {
+		show("feedback-and-input");
+		hide("load-feedback");
+		var hasVisibleFeedback = visibleFeedback.length > 0;
+
+		if (feedback == null || feedback === "" || feedback == []) {
+			if (!hasVisibleFeedback) {
+				show("no-feedback");
+				hide("load-more-feedback");
+				hide("num-feedback-displayed");
+			}
+			return;
+		}
+
+		var newHiddenFeedback = feedback
+			.sort((a, b) => (new Date(a.timestamp).getTime() || 0) - (new Date(b.timestamp).getTime() || 0))
+			.map(item => JSON.stringify(item));
+
+    if (hasVisibleFeedback) {
+			netNewFeedback = newHiddenFeedback
+				.filter(item => !visibleFeedback.includes(item))
+				.filter(item => !hiddenFeedback.includes(item));
+		}
+
+		hiddenFeedback = newHiddenFeedback
+			.filter(item => !visibleFeedback.includes(item))
+			.filter(item => !netNewFeedback.includes(item));
+
+		loadMoreFeedback(false || !hasVisibleFeedback);
+	};
+
+	function loadMoreFeedback(isLoadMoreAction) {
+    var newFeedbackToDisplay = hiddenFeedback;
+
+		if (isLoadMoreAction) {
+			newFeedbackToDisplay.reverse().forEach(element => displaySingleFeedback(element, true));
+			hiddenFeedback = hiddenFeedback.filter(item => !newFeedbackToDisplay.includes(item) && !visibleFeedback.includes(item));
+		} else {
+			netNewFeedback.forEach(element => displaySingleFeedback(element, false));
+			netNewFeedback = []
+		}
+
+		setText("num-feedback-displayed", `Showing ${visibleFeedback.length} of ${visibleFeedback.length + hiddenFeedback.length} feedback`);
+
+		if (hiddenFeedback.length == 0) {
+			hide("load-more-feedback");
+		} else {
+			show("load-more-feedback");
+		}
+	};
+
+	function displaySingleFeedback(element, isPrepend) {
+		if (visibleFeedback.includes(element)) {
+			return;
+		}
+
+		var jsonElement = JSON.parse(element);
+		var feedback = jsonElement.feedback?.toString();
+		var newItem = document.createElement("div");
+    newItem.classList.add("feedback-root-item");
+
+    var feedbacker = `${validator.escape(jsonElement.name.toString())}`;
+    if (jsonElement.linkedinurl?.toString()) {
+      feedbacker = `<a class="feedbacker-name" href='${jsonElement.linkedinurl?.toString()}' target='_blank'>
+        <img src="/assets/images/LinkedIn.png" class="social-logo-img-small" alt="LinkedIn">
+        ${feedbacker}</a>`;
+    }
+		newItem.innerHTML = `
+			<p class="feedbacker-name">${feedbacker}
+				<small>${formatDate(jsonElement.timestamp)}</small>
+			</p>
+			<div>
+				<p>${validator.escape(feedback?.toString()).replace(new RegExp('\r?\n','g'), '<br />')}</p>
+			</div>
+		`.trim();
+		if (isPrepend) {
+      document.getElementById("feedback-container").prepend(newItem);
+		} else {
+      document.getElementById("feedback-container").append(newItem);
+		}
+		fadeIn(newItem);
+		visibleFeedback.push(element);
+
+		hide("no-feedback");
+		show("num-feedback-displayed");
+	};
+
+	function reloadFeedback() {
+		fetch(`{{ site.google_forms_feedback.google_app_script }}`)
+		.then(response => response.json())
+		.then(response => {
+			var error = response?.error || null;
+			if (error != null) {
+				console.error(error);
+				setText("feedback-submit-error", error);
+				show("feedback-submit-error");
+			} else {
+				setText("feedback-submit-error", '');
+				hide("feedback-submit-error");
+				displayFeedback(response);
+			}
+		});
+		
+	};
+
+	function checkRecaptcha() {
+    grecaptcha.ready(function() {
+      var pageAction = "feedback_submit_{{ page.title }}".replace(/[^A-Za-z/_]/g, "");
+      grecaptcha.execute('{{ site.google_forms_feedback.recaptcha_site_key }}', { action: pageAction }).then(function(token) {
+        postFeedback(token);
+      });
+    });
+    return false;
+  };
+
+  function getFeedbackContent() {
+		var feedback = getValue("feedback-feedback")?.toString();
+
+		return feedback;
+	};
+
+	function postFeedback(recaptchaToken) {
+		disablePostFeedbackButton();
+    
+		var name = getValue("feedback-name") || "Anonymous"
+		var linkedinurl = getValue("feedback-linkedinurl") || "Anonymous"
+		var feedback = getValue("feedback-feedback") || "";
+
+		fetch(`{{ site.google_forms_feedback.google_app_script }}`, {
+		  method: 'POST',
+		  mode: 'cors',
+		  redirect: "follow",
+		  headers: {
+		    "Content-Type": "text/plain;charset=utf-8"
+		  },
+		  body: JSON.stringify({
+        name,
+        feedback,
+        linkedinurl,
+		  	recaptchaToken: (recaptchaToken || null)
+		  })
+		})
+    .then(response => response)
+    .then(response => response.json())
+		.then(response => {
+			var error = response?.error || null;
+			if (error != null) {
+				console.error(error);
+				setText("feedback-submit-error", error);
+        smoothScrollTo(document.getElementById('feedback-submit-error'));
+        hide("feedback-submit-info");
+				show("feedback-submit-error");
+			} else {
+        setValue("feedback-name", '');
+        setValue("feedback-feedback", '');
+        setValue("feedback-linkedinurl", '');
+				show("feedback-submit-info");
+        hide("feedback-submit-error");
+        smoothScrollTo(document.getElementById('feedback-submit-info'));
+				setText("feedback-submit-info", 'Successfully submitted, Thank you!');
+			}
+		})
+		.catch(error => {
+      console.log(error);
+      smoothScrollTo(document.getElementById('feedback-submit-error'));
+      setText("feedback-submit-error", error);
+      hide("feedback-submit-info");
+      show("feedback-submit-error");
+    })
+		.finally(() => { enablePostFeedbackButton(); });
+
+		return false;
+	};
+
+  fetch(`{{ site.google_forms_feedback.google_app_script }}?pending=true`)
+		.then(response => response.json())
+		.then(response => {
+      console.log(response);
+			var error = response?.error || null;
+			if (error != null || !response.count) {
+        document.getElementById('pending-feedback').innerText = 'N/A';
+        document.getElementById('post-update-title').style.display = 'none';
+			} else {
+        document.getElementById('pending-feedback').innerText = '[ ' + response.count + ' ]';
+        document.getElementById('post-update-title').style.display = 'block';
+			}
+		});
+
+    {%- unless lazy_load_enabled -%}
+  		initialFeedbackLoad();
+	  {%- endunless -%}
+</script>
+
+<h4 class="post-update-title" id="post-update-title">Feedback pending moderation: <span id="pending-feedback"></span></h4>
+<div id="load-feedback" class="feedback">
+	<button id="load-feedback-button" class="feedback-button" onclick="initialFeedbackLoad()">Load Feedback</button>
+</div>
+<div id="feedback-and-input">
+	<div id="feedback-section" class="feedback">
+		<p id="num-feedback-displayed"></p>
+		<button id="load-more-feedback" class="feedback-button" onclick="loadMoreFeedback(true)" type="button">Load Older Feedback</button>
+		<div id="no-feedback" class="feedback-info-text">
+			<p>There are currently no feedback, be the first to add one below</p>
+		</div>
+		<div id="feedback-container"></div>
+	</div>
+	<div class="feedback">
+		<div class="feedback-info-text">
+			<p>Note that the feedback are moderated, it may appear after sometime if found appropriate.</p>
+		</div>	
+    <div class="feedback-form">
+			<form onsubmit="return checkRecaptcha()" id="feedback-form" autocomplete="off">
+        <div class="feedback-info-text" id="feedback-info-text">
+          <p id="feedback-submit-error"></p>
+          <p id="feedback-submit-info"></p>
+        </div>	
+        <ul>
+          <li class="feedback-box">
+            <input id="feedback-name" name="name" type="text" placeholder="Name" value="">
+          </li>
+          <li class="feedback-box">
+            <input id="feedback-linkedinurl" name="linkedinurl" type="text" placeholder="LinkedIn Profile" value="">
+          </li>
+          <li class="feedback-box">
+            <textarea id="feedback-feedback" name="feedback" placeholder="Share your thoughts/suggestions/feedback*" required=""></textarea>
+          </li>
+          <li><button id="feedback-submit" type="submit" class="feedback-button">Submit</button></li>
+        </ul>
+        <p id="feedback-recaptcha-disclaimer">This site is protected by reCAPTCHA and the Google
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+        </p>
+      </form>
+		</div>
+	</div>
+</div>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+.feedback-root-item {
+  position: relative;
+	padding: 1em 1em;
+	background: white;
+	font-family: "Source Sans Pro", sans-serif;
+	width: 95%;
+	margin: 1em auto;
+	box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+
+}
+.feedback-item {
+  margin-top: 1em;
+	font-family: "Source Sans Pro", sans-serif;
+	background: white;
+	margin-left: 2em;
+  -webkit-box-shadow: inset 0px 3px 3px -3px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    inset 0px 3px 3px -3px rgba(50, 50, 50, 0.75);
+  box-shadow:         inset 0px 3px 3px -3px rgba(50, 50, 50, 0.75);
+}
+
+.feedback-root-item:after,
+.feedback-item:after {
+	content: "";
+	position: relative;
+	display: block;
+	clear: both;
+}
+
+.feedback-root-item p,
+.feedback-item p {
+	line-height: 1.6;
+  margin-bottom: 0.25rem;
+}
+
+.feedback-root-item small,
+.feedback-item small {
+	padding-left: 0.7em;
+	color: #999;
+	font-size: 0.8em;
+}
+
+.feedbacker-name {
+	color: #367588;
+	text-decoration: none;
+	font-size: 1em;
+	font-weight: 700;
+  margin-bottom: 0.5rem !important;
+}
+
+.feedbacker-name strong {
+	color: #e91e63;
+	text-decoration: none;
+	font-size: 1em;
+	font-weight: 700;
+}
+
+.feedbacker-name div p {
+  margin-bottom: 0.5rem;
+}
+
+#feedback-reply-info p {
+	margin: 0;
+}
+
+.feedback-form {
+	margin-left: 1em;
+	margin-right: 1em;
+	width: 95%;
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+.feedback-form ul {
+	list-style: none;
+	margin-left: -40px;
+}
+
+.feedback-form ul li {
+	margin-bottom: 15px;
+}
+
+.feedback {
+	align-items: center;
+	border-top: 0.5px solid #e5e5e5;
+	padding-top: 1rem;
+	position: relative;
+}
+
+.feedback p {
+  font-size: 0.9em;
+}
+
+.feedback-button {
+	border: 0;
+	border-radius: 8px;
+	background: #9ccc65;
+	color: #fff;
+	font-family: "Source Sans Pro", sans-serif;
+	font-weight: bold;
+	font-size: 0.9em;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	outline-style: none;
+	padding: 10px 20px;
+	width: auto;
+	min-width: 25%;
+}
+
+#feedback-submit {
+	width: auto;
+	min-width: 25%;
+	position: relative;
+}
+
+.feedback-button:disabled::after,
+.feedback-button[disabled]::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    -webkit-animation: button-loading-spinner 1s ease infinite;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@-webkit-keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+#load-more-feedback {
+	width: auto;
+}
+
+#load-more-feedback,
+#num-feedback-displayed {
+	display: none;
+}
+
+#feedback-name,
+#feedback-linkedinurl,
+#feedback-feedback {
+	width: 100%;
+	padding: 10px;
+	border: 0;
+	border-radius: 8px;
+	background: #f7f7f7;
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-name::-webkit-input-placeholder,
+#feedback-linkedinurl::-webkit-input-placeholder,
+#feedback-feedback::-webkit-input-placeholder {
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-name::-moz-placeholder,
+#feedback-linkedinurl::-moz-placeholder,
+#feedback-feedback::-moz-placeholder {
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-name:-ms-input-placeholder,
+#feedback-linkedinurl::-ms-input-placeholder,
+#feedback-feedback:-ms-input-placeholder {
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-name::placeholder,
+#feedback-linkedinurl::placeholder,
+#feedback-feedback::placeholder {
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-name:focus,
+#feedback-linkedinurl:focus,
+#feedback-feedback:focus {
+	background: #fff;
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-feedback {
+	width: 100%;
+	height: 80px;
+	resize: vertical;
+	min-height: 80px;
+}
+
+.grecaptcha-badge {
+	visibility: hidden;
+}
+
+#feedback-recaptcha-disclaimer {
+	text-align: justify;
+    text-align-last: center;
+    font-size: .7em;
+	font-family: "Source Sans Pro", sans-serif;
+}
+
+#feedback-submit-error {
+	color: red;
+	display: none;
+}
+
+.feedback-info-text {
+	letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.feedback-info-text p {
+	margin: 0 0 1rem;
+	/* text-align: justify; */
+  text-align-last: left;
+  font-size: .7em;
+}
+
+#feedback-container {
+	width: 100%;
+}
+
+.post-subtitle {
+  margin-top: 1.25rem;
+}
+
+#feedback-section, #load-feedback {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+{%- if lazy_load_enabled -%}
+#feedback-and-input {
+	display: none;
+}
+{%- else -%}
+#load-feedback {
+	display: none;
+}
+{%- endif -%}
+</style>

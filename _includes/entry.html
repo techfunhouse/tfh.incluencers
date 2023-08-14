@@ -1,0 +1,117 @@
+{% if entry.id %}
+  {% assign title = entry.title | markdownify | strip_html %}
+{% else %}
+  {% assign title = entry.title %}
+{% endif %}
+
+<article class="entry h-entry">
+  <header class="entry-header">
+    <h3 class="entry-title p-name">
+      {% if entry.link %}
+        {% if entry.type == 'Individual' %}
+          <img src="{{ site.person_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" 
+            alt="{{ site.person_title }}">
+        {% endif %}
+        {% if entry.type == 'Company' %}
+          <img src="{{ site.company_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" 
+            alt="{{ site.company_title }}">
+        {% endif %}
+        {% if entry.type == 'Community' %}
+          <img src="{{ site.community_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" 
+            alt="{{ site.community_title }}">
+        {% endif %}
+        <a class="u-bookmark-of" href="{{ entry.link }}">{{ title }}</a> <a href="{{ entry.url | relative_url }}" rel="bookmark"><span class="link-arrow">&rarr;</span></a>
+      {% else %}
+        {% if entry.type == 'Individual' %}
+          <img src="{{ site.person_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" 
+            alt="{{ site.person_title }}">
+        {% endif %}
+        {% if entry.type == 'Company' %}
+          <img src="{{ site.company_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" 
+            alt="{{ site.company_title }}">
+        {% endif %}
+        {% if entry.type == 'Community' %}
+          <img src="{{ site.community_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" 
+            alt="{{ site.community_title }}">
+        {% endif %}
+        <a href="{{ entry.url | relative_url }}" rel="bookmark">{{ title }}</a>
+      {% endif %}
+    </h3>
+    {% if entry.image.thumbnail %}
+      {% assign entry_image = entry.image.thumbnail %}
+      {% unless entry_image contains '://' %}
+        {% assign entry_image = entry_image | relative_url %}
+      {% endunless %}
+      {% assign entry_image = entry_image | escape %}
+      <img class="entry-image u-photo" src="{{ entry_image }}" alt="">
+    {% endif %}
+  </header>
+  <div class="social-presence" style="justify-content: flex-start !important; margin: 0">
+    {% if entry.linkedin %}
+      <a href="{{ entry.linkedin }}" rel="bookmark" target="_blank">
+        <img src="{{ site.linkedin_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.linkedin_title }}">
+      </a>
+    {% endif %}
+    {% if entry.twitter %}
+      <a href="{{ entry.twitter }}" rel="bookmark" target="_blank">
+        <img src="{{ site.twitter_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.twitter_title }}">
+      </a>
+    {% endif %}
+    {% if entry.youtube %}
+      <a href="{{ entry.youtube }}" rel="bookmark" target="_blank">
+        <img src="{{ site.youtube_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.youtube_title }}">
+      </a>
+    {% endif %}
+    {% if entry.github %}
+      <a href="{{ entry.github }}" rel="bookmark" target="_blank">
+        <img src="{{ site.github_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.github_title }}">
+      </a>
+    {% endif %}
+    {% if entry.blog %}
+      <a href="{{ entry.blog }}" rel="bookmark" target="_blank">
+        <img src="{{ site.blog_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.blog_title }}">
+      </a>
+    {% endif %}
+  </div>
+
+  {% unless page.show_excerpts == false %}
+    <div class="entry-excerpt p-summary">
+      {% if entry.excerpt %}
+        {{ entry.excerpt | markdownify }}
+      {% endif %}
+    </div>
+  {% endunless %}
+
+  {% if entry.categories.size > 0 %}
+    <h3 class="page-taxonomies-title">{{ site.data.text[site.locale].categories | default: 'Categories' }}</h3>
+    {% assign categories = entry.categories | sort %}
+    <ul class="page-taxonomies">
+      {%- for domain in categories -%}
+        <li class="page-taxonomy">
+          {{ domain }}
+        </li>
+      {%- endfor- %}
+    </ul>
+  {% endif %}
+  
+  {% if entry.tags.size > 0 %}
+    <h3 class="page-taxonomies-title">{{ site.data.text[site.locale].tags | default: 'tags' }}</h3>
+    {% assign tags = entry.tags | sort %}
+    <ul class="page-taxonomies">
+      {%- for tag in tags -%}
+        <li class="page-taxonomy">
+          {{ tag }}
+        </li>
+      {%- endfor- %}
+    </ul>
+  {% endif %}
+  <hr class="solid">
+
+  <!-- {% if site.read_time or entry.date and page.layout != 'collection' %}
+    <footer class="entry-meta">
+      {% if site.read_time %}{% include read-time.html %}{% endif %}
+      {% if entry.date %}{% include entry-date.html %}{% endif %}
+    </footer>
+  {% endif %} -->
+</article>
+

@@ -1,0 +1,110 @@
+---
+layout: default
+---
+<main id="main" class="main-content" aria-label="Content">
+  <article class="h-entry">
+    <div class="page-wrapper">
+      <header class="page-header">
+        {% assign title = page.title | markdownify | trim | strip_html %}
+        {% if page.link %}
+          <h1 id="page-title" class="page-title p-name">
+            {% if page.type == 'Individual' %}
+              <img src="{{ site.person_logo | relative_url }}" class="social-logo-img animated fadeInDown" 
+                alt="{{ site.person_title }}">
+            {% endif %}
+            {% if page.type == 'Company' %}
+              <img src="{{ site.company_logo | relative_url }}" class="social-logo-img animated fadeInDown" 
+                alt="{{ site.company_title }}">
+            {% endif %}
+            {% if page.type == 'Community' %}
+              <img src="{{ site.community_logo | relative_url }}" class="social-logo-img animated fadeInDown" 
+                alt="{{ site.community_title }}">
+            {% endif %}
+            <a href="{{ page.link }}">{{ title }} <span class="link-arrow">&rarr;</span></a>
+          </h1>
+        {% else %}
+          <h1 id="page-title" class="page-title p-name">
+            {% if page.type == 'Individual' %}
+              <img src="{{ site.person_logo | relative_url }}" class="social-logo-img animated fadeInDown" 
+                alt="{{ site.person_title }}">
+            {% endif %}
+            {% if page.type == 'Company' %}
+              <img src="{{ site.company_logo | relative_url }}" class="social-logo-img animated fadeInDown" 
+                alt="{{ site.company_title }}">
+            {% endif %}
+            {% if page.type == 'Community' %}
+              <img src="{{ site.community_logo | relative_url }}" class="social-logo-img animated fadeInDown" 
+                alt="{{ site.community_title }}">
+            {% endif %}
+            {{ title }}
+          </h1>
+        {% endif %}
+      </header>
+
+      <div class="page-sidebar">
+        {% include page-author.html %}
+        {% include page-categories.html %}
+        {% include page-tags.html %}
+        {% include page-contributor.html %}
+      </div>
+
+      <div class="page-content">
+        <div class="social-presence">
+          {% if page.linkedin %}
+            <a href="{{ page.linkedin }}" rel="bookmark" target="_blank">
+              <img src="{{ site.linkedin_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.linkedin_title }}">
+            </a>
+          {% endif %}
+          {% if page.twitter %}
+            <a href="{{ page.twitter }}" rel="bookmark" target="_blank">
+              <img src="{{ site.twitter_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.twitter_title }}">
+            </a>
+          {% endif %}
+          {% if page.youtube %}
+            <a href="{{ page.youtube }}" rel="bookmark" target="_blank">
+              <img src="{{ site.youtube_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.youtube_title }}">
+            </a>
+          {% endif %}
+          {% if page.github %}
+            <a href="{{ page.github }}" rel="bookmark" target="_blank">
+              <img src="{{ site.github_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.github_title }}">
+            </a>
+          {% endif %}
+          {% if page.blog %}
+            <a href="{{ page.blog }}" rel="bookmark" target="_blank">
+              <img src="{{ site.blog_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.blog_title }}">
+            </a>
+          {% endif %}
+        </div>
+      
+        <p class="e-excerpt">
+          {{ page.excerpt }}
+        </p>
+
+        <hr class="solid">
+
+        <p class="e-about">
+          {{ page.about | newline_to_br | split: '<br />' | join: '<br /><br />' }}
+        </p>
+
+        <hr class="solid">
+
+        <div class="e-content">
+          {{ content }}
+        </div>
+
+
+        <!-- {% if page.share %}
+          {% include social-share.html %}
+        {% endif %} -->
+
+        {% include page-pagination.html %}
+
+        {% include comment-section.html url=page.url %}
+
+      </div>
+    </div>
+  </article>
+</main>
+
+

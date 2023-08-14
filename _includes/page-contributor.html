@@ -1,0 +1,16 @@
+{% if page.author %}
+  {% assign name = page.author | split: '/' | last %}
+  <h3 class="page-taxonomies-title">{{ site.data.text[site.locale].contributor | default: 'Contributor' }}</h3>
+  <ul class="page-taxonomies">
+    <li class="page-taxonomy">
+      <a href="{{ page.author }}" rel="contributor" target="_blank">{{ name }}</a>
+    </li>
+  </ul>
+{% else %}
+  <h3 class="page-taxonomies-title">{{ site.data.text[site.locale].contributor | default: 'Contributor' }}</h3>
+  <ul class="page-taxonomies">
+    <li class="page-taxonomy">
+      {{ "Anonymous" }}
+    </li>
+  </ul>
+{% endif %}
