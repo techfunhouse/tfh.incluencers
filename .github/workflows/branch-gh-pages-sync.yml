@@ -9,6 +9,7 @@ jobs:
   sync-branch:
     name: Update gh-pages branch
     runs-on: ubuntu-latest
+    environment: influencers
     steps:
       - name: gh-pages
         uses: actions/checkout@master
