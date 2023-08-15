@@ -39,6 +39,8 @@ company_title: "Blog"
 company_logo: "/assets/images/Company.png"
 community_title: "Blog"
 community_logo: "/assets/images/Group.png"
+techfunhouse_title: "Blog"
+techfunhouse_logo: "/assets/images/TechFunHouse.png"
 date_format: "%B %-d, %Y"
 read_time: false
 words_per_minute: 265
@@ -54,16 +56,16 @@ google_fonts:
   - name: "DM Mono"
     weights: "300,300i,400,400i,500,500i"
 
-google_analytics: "GOOGLE_ANALYTICS_KEY"
+google_analytics: "G-GQNYL2ZJV4"
 google_forms_feedback:
-  google_app_script: "GOOGLE_APPSCRIPT_FEEDBACK_URL"
-  recaptcha_site_key: "GOOGLE_RECAPTCHA_SITE_KEY"
+  google_app_script: "https://script.google.com/macros/s/AKfycbzwx6nQWQ8EevzJv6x7ZE2bCfPvnZoaj7n1Ywd30YBUFZ9W4L7J09-g5ZnVy8IZGojs/exec"
+  recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
 google_forms_proposals:
-  google_app_script: "GOOGLE_APPSCRIPT_PROPOSALS_URL"
-  recaptcha_site_key: "GOOGLE_RECAPTCHA_SITE_KEY"
+  google_app_script: "https://script.google.com/macros/s/AKfycbxgmc6WQnqOIvW1vC3OTyZWvPk2oyEJTKepKl25MdSTBeFb_GCfUkyczeh58VPtq82k/exec"
+  recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
 google_forms_comments:
-  google_app_script: "GOOGLE_APPSCRIPT_COMMENTS_URL"
-  recaptcha_site_key: "GOOGLE_RECAPTCHA_SITE_KEY"
+  google_app_script: "https://script.google.com/macros/s/AKfycbwK_OwqzQdZZhrXjqWpq-PEMiq9iwbWVhKKqhrPnlRgTcq3KxwPIvpSG5dgpSXlnrIQ/exec"
+  recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
   comment_replies_enabled: true
   chunked_comment_loading: false
 
@@ -122,57 +124,35 @@ defaults:
       share: true
 
 # Site Author
-# author:
-#   name: Giri Venkatesan
-#   picture: /assets/images/AuthorLogo.png
-#   email: jordanlevi@ctemplar.com
-#   links:
-#     - title: Twitter
-#       url: https://twitter.com/JordanLeviLV
-#       icon: fab fa-twitter
-#     - title: Instagram
-#       url: https://www.instagram.com/jordanlevilv/
-#       icon: fab fa-instagram
-#     - title: Facebook
-#       url: https://www.facebook.com/JordanLeviLV
-#       icon: fab fa-facebook-f
-#     - title: Snapchat
-#       url: https://www.snapchat.com/add/swaminetero
-#       icon: fab fa-snapchat-ghost
-#     - title: Main Links Page
-#       url: https://jordanlevi.link/
-#       icon: fas fa-link
+author:
+  name: Giri Venkatesan
+  picture: /assets/images/AuthorLogo.png
+  email: jordanlevi@ctemplar.com
+  links:
+    - title: Twitter
+      url: https://twitter.com/JordanLeviLV
+      icon: fab fa-twitter
+    - title: Instagram
+      url: https://www.instagram.com/jordanlevilv/
+      icon: fab fa-instagram
+    - title: Facebook
+      url: https://www.facebook.com/JordanLeviLV
+      icon: fab fa-facebook-f
+    - title: Snapchat
+      url: https://www.snapchat.com/add/swaminetero
+      icon: fab fa-snapchat-ghost
+    - title: Main Links Page
+      url: https://jordanlevi.link/
+      icon: fas fa-link
 
-# # Footer Links
-# footer_links:
-#     - title: Twitter
-#       url: https://twitter.com/JordanLeviLV
-#       icon: fab fa-twitter
-#     - title: Instagram
-#       url: https://www.instagram.com/jordanlevilv/
-#       icon: fab fa-instagram
-#     - title: Facebook
-#       url: https://www.facebook.com/JordanLeviLV
-#       icon: fab fa-facebook-f
-#     - title: Snapchat
-#       url: https://www.snapchat.com/add/swaminetero
-#       icon: fab fa-snapchat-ghost
-#     - title: Main Links Page
-#       url: https://jordanlevi.link/
-#       icon: fas fa-link
+# Footer Links
+footer_links:
+    - title: LinkedIn
+      url: https://linkedin.com/in/girivenkatesan
+    - title: Twitter
+      url: https://twitter.com/giri_venkatesan
+    - title: TechFunHouse
+      url: https://techfunhouse.com
     
 # Copyright
 copyright: <p xmlns:cc="http://creativecommons.org/ns#" >All works are marked with <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC0 1.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"></a> unless stated otherwise.</p>
-# Comments
-# comment-read: https://docs.google.com/spreadsheets/d/1jLk2g-4etOC-gpNrMfqo6nyAWdL7XDuhSIyMTj3f0WU
-# comment-post: https://docs.google.com/forms/u/0/d/e/1FAIpQLSfI6oQ2pYnO5shgLx3ECIsaeQdUUt3hv8kve-sMFyLGp1wcqA
-# comment-post-fields: [ entry.825736473, entry.1842379516, entry.205693541 ]
-# Feedback
-# feedback-read: https://docs.google.com/spreadsheets/d/1bHCAls628Us9OkblYnUf8NUjBoC9QhbaxSRW69D9jkk
-# feedback-post: https://docs.google.com/forms/u/0/d/e/1FAIpQLScJAfVI_KzQLtqRyRRKZbAeKvJBPJohiMgR1vkSq6K-gEMoaw
-# feedback-post-fields: [ entry.464225204, entry.968505473 ]
-# Proposal
-# proposal-read: https://docs.google.com/spreadsheets/d/1vw_Z5AcBzCw8sZ5zu8C2eC5j9Xa4bkVFvN5Q-xCStWk
-# proposal-post: https://docs.google.com/forms/d/e/1FAIpQLSfwq0-u9cc-S7PfiG-Q8DS8aAukKEdZTINWhZKwAMus_WGf6Q
-# proposal-post-fields: [ entry.565377069, entry.1133466929, entry.2005548671, entry.212074051, entry.1787388196, 
-#                         entry.58069124, entry.747756605, entry.1189148437, entry.68128135, entry.448053597 ]
