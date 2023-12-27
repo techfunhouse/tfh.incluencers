@@ -33,6 +33,8 @@ github_title: "GitHub"
 github_logo: "/assets/images/GitHub.png"
 blog_title: "Blog"
 blog_logo: "/assets/images/Blog.png"
+website_title: "Website"
+website_logo: "/assets/images/WebSite.png"
 person_title: "Blog"
 person_logo: "/assets/images/Person.png"
 company_title: "Blog"
@@ -61,7 +63,7 @@ google_forms_feedback:
   google_app_script: "https://script.google.com/macros/s/AKfycbzwx6nQWQ8EevzJv6x7ZE2bCfPvnZoaj7n1Ywd30YBUFZ9W4L7J09-g5ZnVy8IZGojs/exec"
   recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
 google_forms_proposals:
-  google_app_script: "https://script.google.com/macros/s/AKfycbxgmc6WQnqOIvW1vC3OTyZWvPk2oyEJTKepKl25MdSTBeFb_GCfUkyczeh58VPtq82k/exec"
+  google_app_script: "https://script.google.com/macros/s/AKfycbzkdYj8a9bG-ALIp3s1v-GmPgUQbsaM87-KjSH8WqSgVXP9i0evtWgkoFAPj3XGtHCn/exec"
   recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
 google_forms_comments:
   google_app_script: "https://script.google.com/macros/s/AKfycbwK_OwqzQdZZhrXjqWpq-PEMiq9iwbWVhKKqhrPnlRgTcq3KxwPIvpSG5dgpSXlnrIQ/exec"

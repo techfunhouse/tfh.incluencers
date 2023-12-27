@@ -1,33 +1,4 @@
 {%- assign recaptcha_enabled = true -%}
-{% assign sitetags = "" | split: ',' %}
-{% for tag in site.tags %}
-  {% assign sitetags = sitetags | push: tag[0] %}
-  {% assign sitetags = sitetags | push: "|" %}
-{% endfor %}
-
-{% assign sitecats = "" | split: ',' %}
-{% for cat in site.categories %}
-  {% assign sitecats = sitecats | push: cat[0] %}
-  {% assign sitecats = sitecats | push: "|" %}
-{% endfor %}
-
-{% assign sitetags = "" | split: ',' %}
-{% for tag in site.tags %}
-  {% assign sitetags = sitetags | push: tag[0] %}
-  {% assign sitetags = sitetags | push: "|" %}
-{% endfor %}
-
-{% assign globalcats = "" | split: ',' %}
-{% for cat in site.data.categories %}
-  {% assign globalcats = globalcats | push: cat %}
-  {% assign globalcats = globalcats | push: "|" %}
-{% endfor %}  
-
-{% assign globaltags = "" | split: ',' %}
-{% for tag in site.data.tags %}
-  {% assign globaltags = globaltags | push: tag %}
-  {% assign globaltags = globaltags | push: "|" %}
-{% endfor %}  
 
 <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
@@ -93,9 +64,6 @@
 	const EXTRA_INFO_START = "chunkedProposalInfoStart";
 	const EXTRA_INFO_END = "chunkedProposalInfoEnd";
 
-	var globalCategories = [];
-	var globalTags = [];
-
 	function formatDate(stringDate) {
 		var date = new Date(stringDate);
 		var dateOptions = { year: 'numeric', month: 'long', day: 'numeric'};
@@ -137,10 +105,6 @@
 		var twitter = getValue("proposal-twitter") || "";
 		var github = getValue("proposal-github") || "";
 		var blog = getValue("proposal-blog") || "";
-		var categories = JSON.parse(getValue("proposal-categories")).map(item => item.value).join(', ') || '[]'
-		var tags = JSON.parse(getValue("proposal-topics")).map(item => item.value).join(', ') || '[]'
-		var about = getValue("proposal-about") || "";
-		var excerpt = getValue("proposal-excerpt") || "";
 		var yourname = getValue("proposal-yourname") || "";
 		var yourlinkedin = getValue("proposal-yourlinkedin") || "";
 
@@ -168,10 +132,6 @@
         twitter,
         github,
         blog,
-        categories,
-        tags,
-        excerpt,
-        about,
         yourname,
         yourlinkedin,
 		  	recaptchaToken: (recaptchaToken || null)
@@ -195,10 +155,6 @@
         setValue("proposal-twitter", '');
         setValue("proposal-github", '');
         setValue("proposal-blog", '');
-        setValue("proposal-categories", '');
-        setValue("proposal-topics", '');
-        setValue("proposal-about", '');
-        setValue("proposal-excerpt", '');
         setValue("proposal-yourname", '');
         setValue("proposal-yourlinkedin", '');
 				show("proposal-submit-info");
@@ -231,46 +187,6 @@
           document.getElementById('pending-proposals').innerText = '[ ' + (response ? response.count : 0) + ' ]';
         }
       });
-
-    var globalcats = '{{ globalcats }}'
-    globalcats.split('|').forEach(cat => cat ? globalCategories.push(cat) : '');
-    var globaltags = '{{ globaltags}}';
-    globaltags.split('|').forEach(tag => tag ? globalTags.push(tag) : '');
-
-    var sitecats = {{ sitecats | split: '|' }};
-    sitecats.forEach(element => {
-      if (element && !globalCategories.includes(element)) globalCategories.push(element);
-    });
-    globalCategories.sort();
-    new Tagify(document.querySelector('#proposal-categories'), {
-      whitelist: globalCategories,
-      dropdown: {
-        enforceWhitelist: false,
-        enabled: 0,               // show the dropdown immediately on focus
-        maxItems: 5,
-        position: "text",         // place the dropdown near the typed text
-        closeOnSelect: false,      // keep the dropdown open after selecting a suggestion
-        highlightFirst: false
-      }
-    });
-
-    var sitetags = {{ sitetags | split: '|' }};
-    sitetags.forEach(element => {
-      if (element && !globalTags.includes(element)) globalTags.push(element);
-    });
-    globalTags.sort();
-    new Tagify(document.querySelector('#proposal-topics'), {
-      whitelist: globalTags,
-      dropdown: {
-        enforceWhitelist: false,
-        enabled: 0,               // show the dropdown immediately on focus
-        maxItems: 5,
-        position: "text",         // place the dropdown near the typed text
-        closeOnSelect: false,      // keep the dropdown open after selecting a suggestion
-        highlightFirst: false
-      }
-    });
-
   }
 
   loadGlobalData();
@@ -326,22 +242,6 @@
           <li class="proposal-box"></li>
           <dd class="proposal-group-description" id="proposal-group-description">Provide at least one URL to locate the influencer.*</dd>
         </div>
-        <li class="proposal-box">
-          <textarea id="proposal-categories" name="categories" placeholder="Categories*" required=""></textarea>
-          <dd class="description">A list of categories their expertise spans - one category per line preferred.</dd>
-        </li>
-        <li class="proposal-box">
-          <textarea id="proposal-topics" name="topics" placeholder="Topics*" required=""></textarea>
-          <dd class="description">A list of topics that can quickly identify their expertise and knowledge domain - one topic per line or a comma-separated text preferred.</dd>
-        </li>
-        <li class="proposal-box">
-          <textarea id="proposal-excerpt" name="excerpt" placeholder="Excerpt"></textarea>
-          <dd class="description">A brief intro on the influencer.</dd>
-        </li>
-        <li class="proposal-box">
-          <textarea id="proposal-about" name="about" placeholder="About"></textarea>
-          <dd class="description">Anything more you want to say about this influencer.</dd>
-        </li>
         <div id="proposal-group" class="proposal-group flex-2-cols">
           <li class="proposal-box">
             <input id="proposal-yourname" name="yourname" type="text" placeholder="Your Name" value="">
@@ -539,10 +439,6 @@
 #proposal-twitter,
 #proposal-github,
 #proposal-blog,
-#proposal-categories,
-#proposal-topics,
-#proposal-excerpt,
-#proposal-about,
 #proposal-yourname,
 #proposal-yourlinkedin {
 	width: 100%;
@@ -560,10 +456,6 @@
 #proposal-twitter::-webkit-input-placeholder,
 #proposal-github::-webkit-input-placeholder,
 #proposal-blog::-webkit-input-placeholder,
-#proposal-categories::-webkit-input-placeholder,
-#proposal-topics::-webkit-input-placeholder,
-#proposal-about::-webkit-input-placeholder,
-#proposal-excerpt::-webkit-input-placeholder,
 #proposal-yourname::-webkit-input-placeholder,
 #proposal-yourlinkedin::-webkit-input-placeholder {
 	font-family: "Source Sans Pro", sans-serif;
@@ -576,10 +468,6 @@
 #proposal-twitter::-moz-placeholder,
 #proposal-github::-moz-placeholder,
 #proposal-blog::-moz-placeholder,
-#proposal-categories::-moz-placeholder,
-#proposal-topics::-moz-placeholder,
-#proposal-about::-moz-placeholder,
-#proposal-excerpt::-moz-placeholder,
 #proposal-yourname::-moz-placeholder,
 #proposal-yourlinkedin::-moz-placeholder {  
 	font-family: "Source Sans Pro", sans-serif;
@@ -592,10 +480,6 @@
 #proposal-twitter:-ms-input-placeholder,
 #proposal-github:-ms-input-placeholder,
 #proposal-blog:-ms-input-placeholder,
-#proposal-categories:-ms-input-placeholder,
-#proposal-topics:-ms-input-placeholder,
-#proposal-about:-ms-input-placeholder,
-#proposal-excerpt:-ms-input-placeholder,
 #proposal-yourname:-ms-input-placeholder,
 #proposal-yourlinkedin:-ms-input-placeholder {  
 	font-family: "Source Sans Pro", sans-serif;
@@ -608,10 +492,6 @@
 #proposal-twitter::-ms-input-placeholder,
 #proposal-github::-ms-input-placeholder,
 #proposal-blog::-ms-input-placeholder,
-#proposal-categories::-ms-input-placeholder,
-#proposal-topics::-ms-input-placeholder,
-#proposal-about::-ms-input-placeholder,
-#proposal-excerpt::-ms-input-placeholder,
 #proposal-yourname::-ms-input-placeholder,
 #proposal-yourlinkedin::-ms-input-placeholder {  
 	font-family: "Source Sans Pro", sans-serif;
@@ -624,10 +504,6 @@
 #proposal-twitter::placeholder,
 #proposal-github::placeholder,
 #proposal-blog::placeholder,
-#proposal-categories::placeholder,
-#proposal-topics::placeholder,
-#proposal-about::placeholder,
-#proposal-excerpt::placeholder,
 #proposal-yourname::placeholder,
 #proposal-yourlinkedin::placeholder {  
 	font-family: "Source Sans Pro", sans-serif;
@@ -640,24 +516,10 @@
 #proposal-twitter:focus,
 #proposal-github:focus,
 #proposal-blog:focus,
-#proposal-categories:focus,
-#proposal-topics:focus,
-#proposal-about:focus,
-#proposal-excerpt:focus,
 #proposal-yourname:focus,
 #proposal-yourlinkedin:focus {  
 	background: #fff;
 	font-family: "Source Sans Pro", sans-serif;
-}
-
-#proposal-topics,
-#proposal-categories,
-#proposal-excerpt,
-#proposal-about {
-	width: 100%;
-	height: 80px;
-	resize: vertical;
-	min-height: 80px;
 }
 
 .description,
@@ -697,13 +559,14 @@
 .proposal-info-text {
 	letter-spacing: 0.5px;
   text-align: left;
+  font-size: 1.5em;
 }
 
 .proposal-info-text p {
 	margin: 0 0 1rem;
 	/* text-align: justify; */
   text-align-last: left;
-  font-size: .7em;
+  font-size: 0.7em;
 }
 
 #proposal-container {

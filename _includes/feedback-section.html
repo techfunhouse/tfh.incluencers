@@ -98,7 +98,7 @@
 
   async function displayFeedback(feedback) {
 		show("feedback-and-input");
-		hide("load-feedback");
+		show("load-feedback");
 		var hasVisibleFeedback = visibleFeedback.length > 0;
 
 		if (feedback == null || feedback === "" || feedback == []) {
@@ -556,6 +556,11 @@
 	font-family: "Source Sans Pro", sans-serif;
 }
 
+#feedback-submit-info {
+	color: #2a8d7b;
+	display: none;
+}
+
 #feedback-submit-error {
 	color: red;
 	display: none;
@@ -564,13 +569,14 @@
 .feedback-info-text {
 	letter-spacing: 0.5px;
   text-align: left;
+  font-size: 1.5em;
 }
 
 .feedback-info-text p {
 	margin: 0 0 1rem;
 	/* text-align: justify; */
   text-align-last: left;
-  font-size: .7em;
+  font-size: 0.7em;
 }
 
 #feedback-container {

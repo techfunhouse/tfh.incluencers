@@ -67,6 +67,11 @@
         <img src="{{ site.github_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.github_title }}">
       </a>
     {% endif %}
+    {% if entry.website %}
+    <a href="{{ entry.website }}" rel="bookmark" target="_blank">
+      <img src="{{ site.website_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.website_title }}">
+    </a>
+    {% endif %}
     {% if entry.blog %}
       <a href="{{ entry.blog }}" rel="bookmark" target="_blank">
         <img src="{{ site.blog_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.blog_title }}">
@@ -77,7 +82,7 @@
   {% unless page.show_excerpts == false %}
     <div class="entry-excerpt p-summary">
       {% if entry.excerpt %}
-        {{ entry.excerpt | markdownify }}
+      {{ entry.excerpt | split: '&colon;' | join: ':' | split: '&hash;' | join: '#' | split: '&newline;' | join: '<br>' | markdownify }}
       {% endif %}
     </div>
   {% endunless %}
