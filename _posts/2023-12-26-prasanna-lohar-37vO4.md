@@ -19,7 +19,7 @@ tags:
   - Metaverse
   - Web3
   - Blockchain
-date: 2023-08-16T00:00:00.000Z
+date: 2023-12-26T00:00:00.000Z
 comments: true
 published: true
 share: true
@@ -50,4 +50,5 @@ With a robust background spanning over 23 years in the banking and technology se
 - **Facilitator of Partnerships:** Actively involved in facilitating partnerships among stakeholders, fostering an environment conducive to collaboration, and driving a culture of continuous innovation.
 
 This seasoned professional stands as a testament to the intersection of experience, innovation, and leadership in navigating the evolving landscape of banking and technology. Connect to explore collaborative opportunities, industry insights, or discussions on the digital frontier.
+
 

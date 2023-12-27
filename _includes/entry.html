@@ -62,6 +62,11 @@
         <img src="{{ site.youtube_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.youtube_title }}">
       </a>
     {% endif %}
+    {% if entry.instagram %}
+      <a href="{{ entry.instagram }}" rel="bookmark" target="_blank">
+        <img src="{{ site.instagram_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.instagram_title }}">
+      </a>
+    {% endif %}
     {% if entry.github %}
       <a href="{{ entry.github }}" rel="bookmark" target="_blank">
         <img src="{{ site.github_logo | relative_url }}" class="social-logo-img-entry animated fadeInDown" alt="{{ site.github_title }}">

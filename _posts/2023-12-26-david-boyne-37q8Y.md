@@ -21,6 +21,7 @@ tags:
   - Event Driven Architecture
   - AWS
   - Fullstack Engineering
+  - Speaker
 date: 2023-12-26T00:00:00.000Z
 comments: true
 published: true
@@ -34,4 +35,5 @@ permalink: david-boyne-37q8Y
 - Advocates for high industry standards, best practices, and embraces cutting-edge technology trends.
 - Regular speaker at local and international events on agile, lean, and technology topics.
 - Developed Open Source projects with global usage.
+
 

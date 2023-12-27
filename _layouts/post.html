@@ -65,6 +65,11 @@ layout: default
               <img src="{{ site.youtube_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.youtube_title }}">
             </a>
           {% endif %}
+          {% if page.instagram %}
+            <a href="{{ page.instagram }}" rel="bookmark" target="_blank">
+              <img src="{{ site.instagram_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.instagram_title }}">
+            </a>
+          {% endif %}
           {% if page.github %}
             <a href="{{ page.github }}" rel="bookmark" target="_blank">
               <img src="{{ site.github_logo | relative_url }}" class="social-logo-img animated fadeInDown" alt="{{ site.github_title }}">
