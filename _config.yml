@@ -37,13 +37,13 @@ blog_title: "Blog"
 blog_logo: "/assets/images/Blog.png"
 website_title: "Website"
 website_logo: "/assets/images/WebSite.png"
-person_title: "Blog"
+person_title: "Individual"
 person_logo: "/assets/images/Person.png"
-company_title: "Blog"
+company_title: "Company"
 company_logo: "/assets/images/Company.png"
-community_title: "Blog"
+community_title: "Community"
 community_logo: "/assets/images/Group.png"
-techfunhouse_title: "Blog"
+techfunhouse_title: "TechFunHouse"
 techfunhouse_logo: "/assets/images/TechFunHouse.png"
 date_format: "%B %-d, %Y"
 read_time: false
@@ -116,6 +116,7 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-redirect-from
+  - jekyll-remote-theme
 
 # Front Matter Defaults
 defaults:

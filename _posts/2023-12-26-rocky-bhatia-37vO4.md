@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Rocky Bhatia
-excerpt: Architecting the Future @ Adobe - Linked Top Voice - Global Speaker
+excerpt: Architecting the Future @ Adobe - LinkedIn Top Voice - Global Speaker
 about: "Rocky is a dynamic techie and a great team player. He is comfortable with the complexity of architecture and has good understanding of what all it takes to build a resilient big data platform."
 linkedin: https://www.linkedin.com/in/rocky-bhatia-a4801010
 twitter: https://twitter.com/iamrockybhatia
