@@ -159,6 +159,9 @@
 .page-pagination {
   margin: 2em 0 1em;
   clear: both;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
   @include breakpoint($large) {
     display: -webkit-box;
@@ -177,8 +180,9 @@
 }
 
 .page-next {
-  margin-top: 1em;
-
+  // margin-top: 1em;
+  text-align: right;
+  
   @include breakpoint($large) {
     margin-top: 0;
     text-align: right;
