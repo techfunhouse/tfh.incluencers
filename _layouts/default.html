@@ -9,6 +9,7 @@
   {% include head.html %}
   <!-- Google tag (gtag.js) -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.44/darkreader.js"></script>
 
   <script async src='https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}'></script>
   <script>
@@ -18,7 +19,63 @@
 
     gtag('config', '{{ site.google_analytics }}');
   </script>
-  
+  <script>
+    DarkReader.auto(true);
+    window.onload = function() {
+      document.getElementsByClassName('dark-mode-button')[0].onclick = function() {
+        darkmode()
+      }
+      if (localStorage.getItem('dark-mode') === 'true') {
+        document.getElementById('icon-dark').classList.remove('fa-moon');
+        document.getElementById('icon-dark').classList.add('fa-sun');
+      } else {
+        document.getElementById('icon-dark').classList.remove('fa-sun');
+        document.getElementById('icon-dark').classList.add('fa-moon');
+      }
+    }
+
+    if (document.readyState == 'loading') {
+      DarkReader.setFetchMethod(window.fetch)
+      if (localStorage.getItem('dark-mode') === 'true')
+        DarkReader.enable();
+      else
+        DarkReader.disable();
+    }
+
+    function darkmode() {
+      let enabled = localStorage.getItem('dark-mode')
+
+      if (enabled === null) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            enable();
+        }
+      } else if (enabled === 'true') {
+        enable()
+      }
+
+      if (localStorage.getItem('dark-mode') === 'false') {
+          enable();
+      } else {
+          disable();
+      }
+    }
+
+    function enable()  {
+      DarkReader.setFetchMethod(window.fetch)
+      DarkReader.enable();
+      localStorage.setItem('dark-mode', 'true');
+      document.getElementById('icon-dark').classList.remove('fa-moon');
+      document.getElementById('icon-dark').classList.add('fa-sun');
+    }
+
+    function disable() {
+      DarkReader.disable();
+      localStorage.setItem('dark-mode', 'false');
+      document.getElementById('icon-dark').classList.remove('fa-sun');
+      document.getElementById('icon-dark').classList.add('fa-moon');
+    }
+
+  </script>
   <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %} {% if page.entries_layout == 'grid' %}page--wide{% endif %} {{ page.title | slugify }}">
     {% include skip-links.html %}
     {% include navigation.html %}

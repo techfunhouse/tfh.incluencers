@@ -3,6 +3,9 @@
 /* ==========================================================================
    Site-wide
    ========================================================================== */
+html {
+  transition: opacity 1s;
+}
 
 .skip-links {
   ul {
@@ -52,8 +55,8 @@
     padding: 0.5em 0.75em;
     text-transform: uppercase;
     text-decoration: none;
-    border: 1px solid;
-    border-radius: $border-radius;
+    // border: 1px solid;
+    // border-radius: $border-radius;
   }
 
   @include breakpoint($medium) {
