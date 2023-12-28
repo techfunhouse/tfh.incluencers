@@ -184,7 +184,7 @@
         if (error != null) {
           document.getElementById('pending-proposals').innerText = 'N/A';
         } else {
-          document.getElementById('pending-proposals').innerText = '[ ' + (response ? response.count : 0) + ' ]';
+          document.getElementById('pending-proposals').innerText = '[ ' + (response && response.count ? response.count : 0) + ' ]';
         }
       });
   }
@@ -207,7 +207,7 @@
       </div>	
       <ul>
         <li class="proposal-box">
-          <input id="proposal-name" name="name" type="text" placeholder="Name*" value="" required="">
+          <input id="proposal-name" name="name" type="text" placeholder="Name" value="">
           <dd class="description">I am inspired by...</dd>
         </li>
         <li class="proposal-box">

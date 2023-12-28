@@ -65,7 +65,7 @@ google_forms_feedback:
   google_app_script: "https://script.google.com/macros/s/AKfycbzwx6nQWQ8EevzJv6x7ZE2bCfPvnZoaj7n1Ywd30YBUFZ9W4L7J09-g5ZnVy8IZGojs/exec"
   recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
 google_forms_proposals:
-  google_app_script: "https://script.google.com/macros/s/AKfycbzkdYj8a9bG-ALIp3s1v-GmPgUQbsaM87-KjSH8WqSgVXP9i0evtWgkoFAPj3XGtHCn/exec"
+  google_app_script: "https://script.google.com/macros/s/AKfycbzI7nhkM6EMyhWdyxEad9OpeyVwVgHgd7Sn6DT7ATCWJRbKUSm1Ry9fUsu9YCg5zg8E/exec"
   recaptcha_site_key: "6LdshVsnAAAAAC0TFUriXZ84RxD1L0hmN84XaXhI"
 google_forms_comments:
   google_app_script: "https://script.google.com/macros/s/AKfycbwK_OwqzQdZZhrXjqWpq-PEMiq9iwbWVhKKqhrPnlRgTcq3KxwPIvpSG5dgpSXlnrIQ/exec"
