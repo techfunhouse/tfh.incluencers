@@ -4,7 +4,7 @@ layout: page
 
 {{ content }}
 
-<ul class="taxonomy-index" style="grid-column-gap: 10px;">
+<ul class="taxonomy-index" style="grid-column-gap: 10px; grid-template-columns: repeat(auto-fill, minmax(28px, 1fr))">
   <!-- {%- assign lang = site.locale | slice: 0,2 | default: "en" -%} -->
 
   {% assign postsByTitle = site.posts | sort: "title" %}
