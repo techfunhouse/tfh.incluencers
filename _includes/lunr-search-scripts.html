@@ -74,7 +74,7 @@
 
     // console.log(jQuery.type(idx));
     // console.log(store);
-    console.log('IDX', idx);
+    // console.log('IDX', idx);
 
     $(document).ready(function () {
       $('input#search').on('keyup', function () {
@@ -92,7 +92,6 @@
               }
             })
           });
-        console.log('RESULT', result);
         resultdiv.empty();
         resultdiv.prepend('<p class="results__found">' + result.length + ' {{ site.data.text[site.locale].results_found | default: "Result(s) found" }}</p>');
         for (var item in result) {
@@ -112,10 +111,12 @@
               (store[ref].excerpt ?
                 '<div class="entry-excerpt">' +
                   '<p>' + store[ref].excerpt.split(" ").splice(0, 90).join(" ") + '...</p>' +
-                '</div>' :
+                '</div>' : '</div>'
+              ) +
+              (store[ref].excerpt ?
                 '<div class="entry-excerpt">' +
                   '<p>' + store[ref].about.split(" ").splice(0, 90).join(" ") + '...</p>' +
-                '</div>'
+                '</div>' : '</div>'
               ) +
             '</article>';
           resultdiv.append(searchitem);

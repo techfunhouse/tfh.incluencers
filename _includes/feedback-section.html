@@ -273,7 +273,6 @@
   fetch(`{{ site.google_forms_feedback.google_app_script }}?pending=true`)
 		.then(response => response.json())
 		.then(response => {
-      console.log(response);
 			var error = response?.error || null;
 			if (error != null || !response.count) {
         document.getElementById('pending-feedback').innerText = 'N/A';
