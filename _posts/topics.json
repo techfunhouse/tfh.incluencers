@@ -26,6 +26,7 @@
       "API Management",
       "API Monitoring",
       "API Security",
+      "API Strategy",
       "API Standards",
       "API Testing",
       "API Versioning",
@@ -200,6 +201,9 @@
       "Non-profit",
       "Startup",
       "Enterprise Strategy",
-      "Architecture Patterns"
+      "Architecture Patterns",
+      "API Governance",
+      "Developer Relations",
+      "Community Management"
     ]
 }
