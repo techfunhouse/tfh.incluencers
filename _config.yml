@@ -17,8 +17,9 @@
 remote_theme: "mmistakes/so-simple-theme@3.2.0"
 skin: "/assets/css/skins/default.css"
 locale: en-US
+encoding: utf-8
 title: "Spotlight"
-description: "Top Tech Influencers"
+description: "Tech Influencers | Spotlight"
 # baseurl: # the subpath of your site, e.g. "/blog"
 # baseurl: /influencers
 url: "https://influencers.techfunhouse.com"
@@ -26,6 +27,8 @@ logo: "/assets/images/Influencers.png"
 linkedin_title: "LinkedIn"
 linkedin_logo: "/assets/images/LinkedIn.png"
 twitter_title: "Twitter"
+gitsource_logo: "/assets/images/GitHub.png"
+gitsource_title: "GitHub"
 twitter_logo: "/assets/images/Twitter.png"
 youtube_title: "YouTube"
 youtube_logo: "/assets/images/YouTube.png"
@@ -132,32 +135,19 @@ defaults:
 author:
   name: Giri Venkatesan
   picture: /assets/images/AuthorLogo.png
-  email: jordanlevi@ctemplar.com
-  links:
-    - title: Twitter
-      url: https://twitter.com/JordanLeviLV
-      icon: fab fa-twitter
-    - title: Instagram
-      url: https://www.instagram.com/jordanlevilv/
-      icon: fab fa-instagram
-    - title: Facebook
-      url: https://www.facebook.com/JordanLeviLV
-      icon: fab fa-facebook-f
-    - title: Snapchat
-      url: https://www.snapchat.com/add/swaminetero
-      icon: fab fa-snapchat-ghost
-    - title: Main Links Page
-      url: https://jordanlevi.link/
-      icon: fas fa-link
+
+
 
 # Footer Links
 footer_links:
-    - title: LinkedIn
-      url: https://linkedin.com/in/girivenkatesan
-    - title: Twitter
-      url: https://twitter.com/giri_venkatesan
-    - title: TechFunHouse
-      url: https://techfunhouse.com
-    
+  - title: LinkedIn
+    url: https://linkedin.com/in/girivenkatesan
+  - title: Twitter
+    url: https://twitter.com/giri_venkatesan
+  - title: GitSource
+    url: https://github.com/techfunhouse/tfh.influencers
+  - title: TechFunHouse
+    url: https://techfunhouse.com
+  
 # Copyright
 copyright: <p xmlns:cc="http://creativecommons.org/ns#" >All works are marked with <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC0 1.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"></a> unless stated otherwise.</p>
