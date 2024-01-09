@@ -204,6 +204,12 @@
       "Architecture Patterns",
       "API Governance",
       "Developer Relations",
-      "Community Management"
+      "Community Management",
+      "AMQP",
+      "MQTT",
+      "CloudEvents",
+      "Observability",
+      "OpenTelemetry",
+      "Algorithms"
     ]
 }
