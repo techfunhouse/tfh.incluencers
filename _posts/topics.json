@@ -187,7 +187,6 @@
       "Usability",
       "User Experience",
       "User Interface",
-      "UX Design",
       "UX/UI",
       "Virtual Reality",
       "VR Development",
@@ -198,8 +197,10 @@
       "Web3",
       "Webhooks",
       "Entrepreneurship",
+      "Investor",
       "Non-profit",
       "Startup",
+      "Kafka",
       "Enterprise Strategy",
       "Architecture Patterns",
       "API Governance",
@@ -210,6 +211,7 @@
       "CloudEvents",
       "Observability",
       "OpenTelemetry",
-      "Algorithms"
+      "Algorithms",
+      "Content Management System"
     ]
 }
