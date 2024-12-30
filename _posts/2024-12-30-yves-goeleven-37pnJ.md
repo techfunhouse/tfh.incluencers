@@ -13,8 +13,6 @@ tags:
   - Azure
   - Software Architecture
   - Event Driven Architecture
-  - Speaker
-  - Thought Leader
 date: 2024-12-30T00:00:00.000Z
 comments: true
 published: true
