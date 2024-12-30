@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Gregor Hohoe
+title: Gregor Hohpe
 excerpt: Riding the Architect Elevator from enterprise architecture to cloud automation. Author, Speaker, former Singapore Smart Nation Fellow&newline;&newline;Talks about &hash;itstrategy, &hash;cloudcomputing, &hash;ittransformation, and &hash;enterprisearchitecture
 about: "Helps enterprises with their architecture strategy and cloud transformation journey by connecting the penthouse with the engine room. Ex-Google, Allianz, ThoughtWorks, Deloitte.&newline;&newline;"
 linkedin: https://www.linkedin.com/in/ghohpe
